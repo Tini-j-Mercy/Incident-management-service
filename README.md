@@ -31,4 +31,18 @@ A Spring Boot project that provides CRUD APIs for managing incidents, useful for
 ```bash
 mvn spring-boot:run
 
+docker build
+
+<img width="1878" height="366" alt="image" src="https://github.com/user-attachments/assets/8ca70dc0-8ce1-4030-9d26-03c369369ac2" />
+
+docker run
+
+<img width="1911" height="976" alt="image" src="https://github.com/user-attachments/assets/69daf146-77b2-4b3c-b58a-37a9c81f69f0" />
+
+postman verification
+
+<img width="1436" height="937" alt="image" src="https://github.com/user-attachments/assets/0ec81cf9-0498-45e6-ab8e-a1e00904acb9" />
+
+
+
 
