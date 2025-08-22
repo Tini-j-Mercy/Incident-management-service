@@ -44,6 +44,47 @@ postman verification
 
 <img width="1436" height="937" alt="image" src="https://github.com/user-attachments/assets/0ec81cf9-0498-45e6-ab8e-a1e00904acb9" />
 
+####     ALB   ###
+
+Step 1: Security Group Setup
+
+Go to EC2 → Security Groups.
+
+Create 2 SGs:
+
+ALB-SG → allow inbound HTTP (80) from 0.0.0.0/0 (internet).
+
+EC2-SG → allow inbound 8080 only from ALB-SG (not the internet).
+
+Attach EC2-SG to your VM instance.
+<img width="1886" height="869" alt="image" src="https://github.com/user-attachments/assets/d037a342-c68d-49d6-8ff1-17127d71ac98" />
+
+Step 2 : Create Target Group
+Type: Instance (since you’re directly pointing to EC2).
+Protocol: HTTP
+Port: 8080
+Health check path: /actuator/health
+Register Target :   Add your EC2 instance to the Target Group.
+<img width="1529" height="478" alt="image" src="https://github.com/user-attachments/assets/9dee819f-578a-4c3e-8cdb-267312c87914" />
+
+Step 3:  Create Application Load Balancer (ALB)
+Type: Internet-facing
+Listeners:
+HTTP :80 → Forward to Target Group
+Choose subnets (public subnets across at least 2 AZs).
+Attach SG that allows port 80.
+<img width="1884" height="807" alt="image" src="https://github.com/user-attachments/assets/6c4150bf-25ed-4fff-82d9-14f1bd3e37e3" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 
