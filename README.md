@@ -28,10 +28,8 @@ A Spring Boot project that provides CRUD APIs for managing incidents, useful for
 
 
 ## Run Locally
-```bash
 mvn spring-boot:run
 
-```bash
 docker build
 
 ####   
