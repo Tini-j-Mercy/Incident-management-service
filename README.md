@@ -31,7 +31,10 @@ A Spring Boot project that provides CRUD APIs for managing incidents, useful for
 ```bash
 mvn spring-boot:run
 
+```bash
 docker build
+
+####   
 
 <img width="1878" height="366" alt="image" src="https://github.com/user-attachments/assets/8ca70dc0-8ce1-4030-9d26-03c369369ac2" />
 
