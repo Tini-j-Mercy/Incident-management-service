@@ -161,6 +161,9 @@ Choose subnets (public subnets across at least 2 AZs).
 Attach SG that allows port 80.
 <img width="1884" height="807" alt="image" src="https://github.com/user-attachments/assets/6c4150bf-25ed-4fff-82d9-14f1bd3e37e3" />
 
+Note: Terraform script has been created for alb coniguration.
+<img width="1908" height="965" alt="image" src="https://github.com/user-attachments/assets/c20b567e-521f-40bf-99b9-44f824005bbf" />
+
 Step 4: Access Application
 Now you can hit the application in browser/Postman:
 http://<dns-name>/api/incidents
