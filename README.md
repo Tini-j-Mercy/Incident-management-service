@@ -165,6 +165,10 @@ Attach SG that allows port 80.
 Step 4: Access Application
 Now you can hit the application in browser/Postman:
 http://<dns-name>/api/incidents
+<img width="1403" height="786" alt="image" src="https://github.com/user-attachments/assets/565ed4f6-8518-4413-a72b-dad5c64994a1" />
+<img width="1434" height="767" alt="image" src="https://github.com/user-attachments/assets/0e842e0c-65f3-4959-a6f3-d313e98459c7" />
+
+
 
 
 
