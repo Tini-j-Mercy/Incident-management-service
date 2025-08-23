@@ -129,7 +129,7 @@ Now you can hit the application in browser/Postman:
 http://<ec2-public-ip>:8080
 <img width="1250" height="875" alt="image" src="https://github.com/user-attachments/assets/83297360-e49f-4f12-97db-2ad2ad78df9d" />
 
-####    CREATE ALB and access the application using dns   ###
+##  CREATE ALB and access the application using dns  
 
 Step 1: Security Group Setup
 
