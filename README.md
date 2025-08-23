@@ -1,8 +1,7 @@
-# 🚀 Incident Management Service (Spring Boot)
+# END TO END DEVOPS PROJECT # 
 
-A Spring Boot project that provides CRUD APIs for managing incidents, useful for DevOps & SRE teams.
-
-## Features
+## A Spring Boot app that provides CRUD APIs for managing incidents. 
+Step 1:  Features
 - Create, Update, Delete incidents
 - Track severity (LOW, MEDIUM, HIGH)
 - Track status (OPEN, IN_PROGRESS, RESOLVED)
