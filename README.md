@@ -90,7 +90,8 @@ docker ps
 
 Step 3: Access in browser or Postman:
 👉 http://localhost:8080
-<img width="1436" height="937" alt="image" src="https://github.com/user-attachments/assets/0ec81cf9-0498-45e6-ab8e-a1e00904acb9" />
+<img width="1384" height="881" alt="image" src="https://github.com/user-attachments/assets/bf71dc40-88c0-4047-af6f-595271adca83" />
+
 
 ## Login to Docker Hub
 Step 1: docker login
@@ -102,7 +103,6 @@ docker tag myapp:latest yourdockerhubusername/myapp:latest
 Step 3: Push the Image to Docker Hub
 docker push yourdockerhubusername/myapp:latest
 Now the image is available in Docker Hub.
-<img width="1250" height="875" alt="image" src="https://github.com/user-attachments/assets/83297360-e49f-4f12-97db-2ad2ad78df9d" />
 
 ## Deploy Dockerized App on EC2 
 Step 1: Connect to EC2
@@ -127,8 +127,7 @@ Port 8080 → Source = 0.0.0.0/0 (or your IP for security).
 Step 7: Access Application
 Now you can hit the application in browser/Postman:
 http://<ec2-public-ip>:8080
-
-<img width="1384" height="881" alt="image" src="https://github.com/user-attachments/assets/bf71dc40-88c0-4047-af6f-595271adca83" />
+<img width="1250" height="875" alt="image" src="https://github.com/user-attachments/assets/83297360-e49f-4f12-97db-2ad2ad78df9d" />
 
 ####    CREATE ALB and access the application using dns   ###
 
