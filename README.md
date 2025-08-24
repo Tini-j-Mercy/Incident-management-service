@@ -170,6 +170,41 @@ http://<dns-name>/api/incidents
 <img width="1403" height="786" alt="image" src="https://github.com/user-attachments/assets/565ed4f6-8518-4413-a72b-dad5c64994a1" />
 <img width="1434" height="767" alt="image" src="https://github.com/user-attachments/assets/0e842e0c-65f3-4959-a6f3-d313e98459c7" />
 
+## Create EKS Cluster using Terraform
+Step 1: create the EKS cluster 
+Terraform scripts were used to create the EKS cluster along with required IAM roles, node groups, and VPC/subnets.
+Run the following commands:
+terraform init
+terraform plan
+terraform apply -auto-approve
+<img width="1450" height="406" alt="image" src="https://github.com/user-attachments/assets/e2190bed-0f5e-4866-914f-5f3a0ed96381" />
+
+Step 2: Configure kubectl
+Install kubectl locally or on EC2 to interact with the EKS cluster.
+Update kubeconfig for the cluster:
+aws eks --region <region> update-kubeconfig --name <cluster_name>
+<img width="1317" height="70" alt="image" src="https://github.com/user-attachments/assets/b7ea6047-d046-4a4d-a333-9f5f0e3bcb0c" />
+
+Step 3: Verify cluster access:
+kubectl get nodes
+<img width="1093" height="116" alt="image" src="https://github.com/user-attachments/assets/bb4a5801-9d9b-4e00-9583-f68d47f7eb36" />
+
+Step 4: Create Kubernetes Deployment & Service
+deployment.yaml → Defines Spring Boot application deployment and container image.
+service.yaml → Type LoadBalancer to expose application externally.
+Step 5: Apply Deployment & Service
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+Step 6: Check pods and service:
+kubectl get pods
+kubectl get svc
+<img width="1460" height="273" alt="image" src="https://github.com/user-attachments/assets/694dbb88-ff37-4983-969f-acf608a7ff92" />
+
+Step 5: Access the Application
+Access the app using the EXTERNAL-IP of the LoadBalancer service:
+http://<EXTERNAL-IP>/api/incidents
+<img width="1663" height="278" alt="image" src="https://github.com/user-attachments/assets/1384b027-e91c-48f3-950d-ec54441abf4b" />
+
 
 
 
