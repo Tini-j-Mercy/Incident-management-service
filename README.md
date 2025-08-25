@@ -205,6 +205,41 @@ Access the app using the EXTERNAL-IP of the LoadBalancer service:
 http://<EXTERNAL-IP>/api/incidents
 <img width="1663" height="278" alt="image" src="https://github.com/user-attachments/assets/1384b027-e91c-48f3-950d-ec54441abf4b" />
 
+## CI/CD Pipeline with Jenkins
+Step 1: Jenkins Installation
+sudo apt update
+sudo apt install openjdk-11-jdk -y
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt install jenkins -y
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+Step 2:  Access Jenkins in browser: http://<ec2-public-ip>:8080
+Unlock Jenkins using:
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+Install suggested plugins and create admin user.
+<img width="1910" height="961" alt="image" src="https://github.com/user-attachments/assets/98104890-9c80-408b-95ee-877b2377dd55" />
+
+Step 3: Install Required Jenkins Plugins
+Go to Manage Jenkins → Manage Plugins → Available
+Docker Pipeline → Build and push Docker images
+Kubernetes CLI Plugin → Deploy to Kubernetes/EKS
+Git Plugin → Pull code from GitHub
+Pipeline → For Jenkinsfile pipeline execution
+Credentials Binding Plugin → Securely manage passwords & tokens
+
+Step 4: Configure Jenkins Credentials
+Go to Manage Jenkins → Credentials → Global
+GitHub Credentials → Username & Personal Access Token
+Docker Hub Credentials → Username & Password (or access token)
+AWS Credentials → Access Key & Secret Key (for EKS access)
+These credentials will be used in the pipeline securely.
+
+
+
+
 
 
 
