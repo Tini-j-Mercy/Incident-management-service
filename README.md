@@ -248,7 +248,7 @@ SCM: Git
 Repo URL: https://github.com/<your-username>/<repo>.git
 Branch: main
 
-Step 7: Jenkinsfile (upload to GitHub repo)
+Step 7: Jenkinsfile https://github.com/Tini-j-Mercy/Incident-management-service/blob/main/Jenkins-pipeline/sample
 This controls your CI/CD: 
 
 Step 8: Run Pipeline
