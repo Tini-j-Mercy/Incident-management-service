@@ -237,6 +237,36 @@ Docker Hub Credentials → Username & Password (or access token)
 AWS Credentials → Access Key & Secret Key (for EKS access)
 These credentials will be used in the pipeline securely.
 
+Step 5: Create Jenkins Pipeline Job
+Go to New Item → Pipeline
+Enter Job Name: Springboot-EKS-Pipeline
+Select Pipeline → OK
+
+Step 6: Connect GitHub Repository
+In pipeline config → choose Pipeline script from SCM
+SCM: Git
+Repo URL: https://github.com/<your-username>/<repo>.git
+Branch: main
+
+Step 7: Jenkinsfile (upload to GitHub repo)
+This controls your CI/CD: 
+
+Step 8: Run Pipeline
+Click Build Now
+Watch logs → Code → Docker Build → Push → EKS Deployment update.
+<img width="1906" height="969" alt="image" src="https://github.com/user-attachments/assets/8742969b-0003-4e13-8bb5-d8de2eb12944" />
+
+Step 9: Verify Deployment
+kubectl get deployments
+kubectl get pods
+<img width="804" height="161" alt="image" src="https://github.com/user-attachments/assets/2f8ec2a2-0c22-4a0b-9762-65dc574a6bbd" />
+kubectl describe deployment springboot-app
+<img width="1875" height="476" alt="image" src="https://github.com/user-attachments/assets/8bf1a72e-0a85-4c4d-ac5a-d32238933648" />
+
+
+
+
+
 
 
 
