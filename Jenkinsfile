@@ -43,25 +43,27 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                script {
-                    switch(env.BRANCH_NAME) {
-                        case 'main':
-                            echo "Deploying ${DOCKER_IMAGE} to main environment"
-                            break
-                        case 'dev':
-                            sh "kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${DOCKER_IMAGE} -n dev-namespace"
-                            break
-                        case 'qa':
-                            sh "kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${DOCKER_IMAGE} -n qa-namespace"
-                            break
-                        case 'prod':
-                            sh "kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${DOCKER_IMAGE} -n prod-namespace"
-                            break
-                        default:
-                            echo "Branch not configured for deployment"
-                    }
-                }
+    steps {
+        script {
+            // Map branches to namespaces
+            def namespaceMap = [
+                "main": "main-namespace",
+                "dev" : "dev-namespace",
+                "qa"  : "qa-namespace",
+                "prod": "prod-namespace"
+            ]
+
+            if (namespaceMap.containsKey(env.BRANCH_NAME)) {
+                def targetNamespace = namespaceMap[env.BRANCH_NAME]
+                echo "Deploying ${DOCKER_IMAGE} to ${env.BRANCH_NAME} environment (namespace: ${targetNamespace})"
+
+                sh """
+                    kubectl set image deployment/${DEPLOYMENT_NAME} \
+                    ${DEPLOYMENT_NAME}=${DOCKER_IMAGE} \
+                    -n ${targetNamespace}
+                """
+            } else {
+                echo "Branch ${env.BRANCH_NAME} not configured for deployment"
             }
         }
     }
