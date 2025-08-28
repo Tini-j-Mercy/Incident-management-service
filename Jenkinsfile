@@ -2,11 +2,19 @@ pipeline {
     agent any
 
     environment {
+<<<<<<< HEAD
         IMAGE_NAME         = "your-dockerhub-username/springboot-app"   // change this
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'                      // Jenkins credentials ID
         AWS_CREDENTIALS       = 'aws-creds'                            // Jenkins credentials ID
         REGION                = 'ap-south-1'                           // change as per cluster
         CLUSTER_NAME          = 'your-eks-cluster'                     // change as per cluster
+=======
+        IMAGE_NAME         = "tinimercy/springboot-app"   // change this
+        DOCKERHUB_CREDENTIALS = 'docker-hub-credentials'                      // Jenkins credentials ID
+        AWS_CREDENTIALS       = 'jenkins-aws'                            // Jenkins credentials ID
+        REGION                = 'ap-south-1'                           // change as per cluster
+        CLUSTER_NAME          = 'my-demo-eks'                     // change as per cluster
+>>>>>>> dev
         DEPLOYMENT_NAME       = 'springboot-app'                       // from k8s yaml
     }
 
