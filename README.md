@@ -263,6 +263,21 @@ kubectl get pods
 kubectl describe deployment springboot-app
 <img width="1875" height="476" alt="image" src="https://github.com/user-attachments/assets/8bf1a72e-0a85-4c4d-ac5a-d32238933648" />
 
+Step 10: Multi-Branch Setup (Optional)
+To enable multi-environment deployments:
+Create branches: dev, uat, main
+Update Jenkinsfile to use branch-specific Docker tags and Kubernetes namespaces:
+Branch	Namespace	Docker Tag
+dev	dev	dev-v<build_number>
+uat	uat	uat-v<build_number>
+main	staging	main-v<build_number>
+Jenkins will automatically build & deploy each branch to the corresponding environment.
+<img width="1414" height="728" alt="image" src="https://github.com/user-attachments/assets/c620ffd1-99f1-46ee-9334-256c6cbe8271" />
+
+Pipeline automatically builds, pushes Docker images, and deploys Spring Boot apps to EKS for each branch.
+
+## PROMETHEUS AND GRAFANA 
+<img width="1293" height="960" alt="image" src="https://github.com/user-attachments/assets/b91391d9-4f04-4fc3-8963-68a52d6e4249" />
 
 
 
