@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    environment {
+        GITHUB_CREDENTIALS    = 'github-credentials'
+        DOCKERHUB_CREDENTIALS = 'docker-hub-credentials'
+        AWS_CREDENTIALS       = 'jenkins-aws'
+        REGION                = "ap-south-1"
+        DEPLOYMENT_NAME       = "springboot-app"
+        IMAGE_NAME            = "tinimercy/incident-service"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    credentialsId: "${GITHUB_CREDENTIALS}",
+                    url: 'https://github.com/Tini-j-Mercy/Incident-management-service.git'
+            }
+        }
+
+        stage('Build Jar') {
+            steps {
+                dir('incident-service') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build & Push Docker Image') {
+            steps {
+                dir('incident-service') {
+                    script {
+                        // Create dynamic version (timestamp based or build number)
+                        def VERSION = "v${env.BUILD_NUMBER}"
+                        env.DOCKER_IMAGE = "${IMAGE_NAME}:${VERSION}"
+
+                        docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
+                            sh "docker build -t ${DOCKER_IMAGE} ."
+                            sh "docker push ${DOCKER_IMAGE}"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                withAWS(credentials: "${AWS_CREDENTIALS}", region: "${REGION}") {
+                    script {
+                        sh '''
+                        aws eks update-kubeconfig --name my-demo-eks --region ap-south-1
+                        kubectl set image deployment/${DEPLOYMENT_NAME} springboot-app=${DOCKER_IMAGE}
+                        kubectl rollout status deployment/${DEPLOYMENT_NAME}
+                        kubectl get po -n default
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+   
