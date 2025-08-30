@@ -1,4 +1,4 @@
-# END TO END DEVOPS PROJECT # 
+<img width="1121" height="961" alt="image" src="https://github.com/user-attachments/assets/e16febe4-1f73-494b-ad63-ada947717a73" /># END TO END DEVOPS PROJECT # 
 
 ## A Spring Boot app that provides CRUD APIs for managing incidents. 
 Step 1:  Features
@@ -354,6 +354,40 @@ Click Load.
 Choose Prometheus as the data source (the one you added).
 Import → dashboard appears with live data.
 <img width="1892" height="971" alt="image" src="https://github.com/user-attachments/assets/9b78e272-fcc2-4af6-9259-6553ff2ba611" />
+
+
+
+
+The next step is application-level monitoring for your Spring Boot app inside Kubernetes. That means exposing custom app metrics (from your Spring Boot incident-service) and scraping them in Prometheus, then building Grafana dashboards for them.
+
+Here’s what you should do next:
+
+✅ 1. Enable Metrics in Spring Boot (Micrometer + Actuator)
+
+Spring Boot integrates seamlessly with Prometheus using Micrometer.
+
+In your pom.xml, add:
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+
+Then, in application.properties:
+
+management.endpoints.web.exposure.include=health,info,prometheus
+management.endpoint.prometheus.enabled=true
+Now your app exposes metrics at:
+👉 http://localhost:8080/actuator/prometheus
+<img width="1121" height="961" alt="image" src="https://github.com/user-attachments/assets/28bf01c6-c6a7-4486-9b07-c4d8f48eafc9" />
+
+
+
 
 
 
