@@ -263,6 +263,103 @@ kubectl get pods
 kubectl describe deployment springboot-app
 <img width="1875" height="476" alt="image" src="https://github.com/user-attachments/assets/8bf1a72e-0a85-4c4d-ac5a-d32238933648" />
 
+## 🚀 Prometheus & Grafana Setup on Kubernetes
+Step 1: Add Helm Repositories
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+Step 2: Create monitoring Namespace
+kubectl create namespace monitoring
+
+Step 3: Install Prometheus using Helm
+helm install prometheus prometheus-community/prometheus -n monitoring
+
+✅ This installs:
+*Alertmanager
+*Prometheus server
+*Node Exporter
+*Kube State Metrics
+*Pushgateway
+
+Step 4:  Verify Prometheus Deployment
+Check the Helm release:
+helm list -n monitoring
+<img width="1697" height="101" alt="image" src="https://github.com/user-attachments/assets/a77e3dfc-e1c6-4783-8e72-fd74e0aa5148" />
+Check if pods are running:
+kubectl get pods -n monitoring
+<img width="1092" height="214" alt="image" src="https://github.com/user-attachments/assets/43e26564-4f5b-4ef2-a13b-ff4a6ba65f93" />
+
+Step 5: Accessing Prometheus UI
+Once Prometheus is deployed in the monitoring namespace, you can access the Prometheus UI through the AWS LoadBalancer service.
+Verify Prometheus Service
+kubectl get svc -n monitoring
+<img width="1891" height="338" alt="image" src="https://github.com/user-attachments/assets/dcf1b3ef-3699-47d4-9b8b-60db7daef1b7" />
+
+Step 6: Open Prometheus UI in Browser
+Navigate to:
+http://<loadbalancer-dns>
+<img width="1887" height="916" alt="image" src="https://github.com/user-attachments/assets/bc08de15-6c17-4d73-952f-79c73b742069" />
+<img width="1913" height="967" alt="image" src="https://github.com/user-attachments/assets/64369bba-3353-464e-89f3-f8ddcf5c97e6" />
+
+Step 7: 📊 Accessing Grafana UI
+Install Grafana
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm install grafana grafana/grafana \
+  --namespace monitoring \
+  --create-namespace \
+  --set service.type=LoadBalancer \
+  --set adminUser=admin \
+  --set adminPassword=admin123 \
+  --set persistence.enabled=true \
+  --set persistence.size=2Gi
+  <img width="1510" height="873" alt="image" src="https://github.com/user-attachments/assets/67f883b5-0528-4955-b4fc-24c94b133553" />
+
+Step 8: Verify Service
+kubectl get svc -n monitoring
+<img width="1897" height="414" alt="image" src="https://github.com/user-attachments/assets/2eba00e5-d9bf-4a97-8df9-321caffa3453" />
+
+Step 9 : Open Grafana in Browser
+http://<grafana-loadbalancer-dns>
+<img width="1902" height="964" alt="image" src="https://github.com/user-attachments/assets/0d05becb-fd06-4dd3-bb7d-d394eb37c607" />
+
+Login with:
+Username: admin
+Password: admin123
+<img width="1900" height="967" alt="image" src="https://github.com/user-attachments/assets/442c0762-e255-4bce-b415-9f6d1545d999" />
+
+Step 10: Add Prometheus as Data Source
+Go to Connections → Data Sources → Add Data Source.
+Select Prometheus.
+Set URL = http://prometheus-server.monitoring.svc.cluster.local.
+Save & Test.
+Import Dashboards
+Go to Dashboards → Import.
+Example Dashboard ID: 1860 (Kubernetes Cluster Monitoring).
+Connect it to your Prometheus data source.
+<img width="1890" height="961" alt="image" src="https://github.com/user-attachments/assets/f98f1834-1755-499c-9ba2-8db2eb307553" />
+
+Step 7: sanity check
+In Grafana, go to Explore → pick Prometheus at top-left → run the query up.
+You should see a series per target (node-exporter, kube-state-metrics, etc.).
+<img width="1544" height="889" alt="image" src="https://github.com/user-attachments/assets/da5ddc07-4b0c-4c41-ab98-81f0d8de2543" />
+
+Step 8: Import Dashboards
+In Grafana → left menu Dashboards → Import.
+Paste a dashboard ID from Grafana.com, e.g.:
+1860 → Node Exporter Full (great host/node overview)
+3662 → Prometheus 2.0 Stats
+Click Load.
+Choose Prometheus as the data source (the one you added).
+Import → dashboard appears with live data.
+<img width="1892" height="971" alt="image" src="https://github.com/user-attachments/assets/9b78e272-fcc2-4af6-9259-6553ff2ba611" />
+
+
+
+
+
+
 
 
 
